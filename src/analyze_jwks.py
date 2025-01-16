@@ -7,6 +7,7 @@ import requests
 from cryptography import x509
 from cryptography.hazmat.backends import default_backend
 import base64
+import re
 
 def analyze_jwks(jwks: str):
     jwks_json = json.loads(jwks)
@@ -28,6 +29,12 @@ def analyze_jwks(jwks: str):
 def analyze_jwks_from_url(url: str):
     r = requests.get(url)
     if r.status_code == 200:
+        cache_control = r.headers.get('Cache-Control', None)
+        if cache_control is not None:
+            max_age_str = name = re.search('.*=([0-9]*)[^0-9]*', cache_control).group(1)
+            max_age = int(max_age_str)
+            print(f'Identity Provider is sending the "Cache-Control" header with a value for max age of {max_age} seconds (={max_age/(60*60)} hours)')
+            print ('')
         analyze_jwks(r.text)
     else:
         print ('Unable to fetch data from provided URL')
