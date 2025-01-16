@@ -30,14 +30,6 @@ For installing only the packages required to run the tool, use:
 poetry install --without dev --no-root
 ```
 
-### Configuration file
-
-In the python folder, copy the file `example-config.yaml` to `config.yaml` and set the appropriate values.
-
-### Authenticate to Azure
-
-Before running the code, you need to authenticate to Azure. There are multiple ways to do that. If you use VS Code, you can install the extension `Azure Account` and authenticate directly in VS Code using the command by calling `Azure: Sign in to Azure Cloud`. Alternatively, install the `az` command line tool and run `az login`.
-
 ### Runing the code
 
 In general, the code can be run with poetry like this:
@@ -57,11 +49,11 @@ poetry shell
 List all organizations by running
 
 ```bash
-poetry run python src/ccloud_list_environments.py --config config.yaml
+poetry run python src/decode_jwks.py -u <URL of a JWKS endpoint>
 ```
 
 ## License
 
-Copyright Eike Thaden, 2023.
+Copyright Eike Thaden, 2025.
 
 See LICENSE file
